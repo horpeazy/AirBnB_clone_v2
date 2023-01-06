@@ -2,6 +2,7 @@
 """This module defines a class to manage database storage for hbnb clone"""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql.expression import text
 from models.base_model import Base
 from models.city import City
 from models.amenity import Amenity
@@ -40,13 +41,13 @@ class DBStorage:
                     }
             dictionary = {}
             for obj_name, obj in classes.items():
-                objs = self.__session.query(obj).all()
+                objs = self.__session.query(text(obj.__tablename__)).all()
                 for item in objs:
                     key = obj_name  + "." + item.id           
                     dictionary.update({key: item})
         else:
             dictionary = {}
-            objs = self.__session.query(cls).all()
+            objs = self.__session.query(text(cls.__tablename__)).all()
             for item in objs:
                     key = obj + "." + item.id
                     dictionary.update({key: item})
