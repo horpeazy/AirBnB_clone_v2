@@ -50,7 +50,7 @@ class DBStorage:
             cls = classes[cls]
             objs = self.__session.query(cls.__table__).all()
             for item in objs:
-                    key = cls + "." + item.id
+                    key = cls['__class__'] + "." + item.id
                     dictionary.update({key: item})
 
         return dictionary
