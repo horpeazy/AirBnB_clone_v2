@@ -33,7 +33,9 @@ class BaseModel:
     def __str__(self):
         """Returns a string representation of the instance"""
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        return '[{}] ({}) {}'.format(cls, self.id, self.to_dict())
+        if "_sa_instance_state" in self.__dict__:
+            del self.__dict__["_sa_instance_state"]
+        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""
@@ -49,7 +51,6 @@ class BaseModel:
 
     def to_dict(self):
         """Convert instance into dict format"""
-        print("Someone called me")
         dictionary = {}
         dictionary.update(self.__dict__)
         dictionary.update({'__class__':
@@ -57,6 +58,5 @@ class BaseModel:
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
         if "_sa_instance_state" in dictionary:
-            print("Someone called me again")
             del dictionary["_sa_instance_state"]
         return dictionary
