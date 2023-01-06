@@ -52,7 +52,7 @@ class DBStorage:
             for item in objs:
                     key = cls.__name__ + "." + item.id
                     # print(item.to_dict())
-                    dictionary.update({key: item})
+                    dictionary.update({key: item.to_dict()})
 
         return dictionary
 
