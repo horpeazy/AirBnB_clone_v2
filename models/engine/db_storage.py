@@ -35,10 +35,10 @@ class DBStorage:
 
     def all(self, cls=None):
         """ Returns a dictionary of models currently in storage """
-        if not cls:
-            classes = {"User": User, "State": State, "City": City, 
+        classes = {"User": User, "State": State, "City": City, 
                         "Amenity": Amenity, "Place": Place , "Review": Review
-                    }
+        }
+        if not cls:
             dictionary = {}
             for obj_name, obj in classes.items():
                 objs = self.__session.query(obj.__table__).all()
