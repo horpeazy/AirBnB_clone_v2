@@ -41,13 +41,13 @@ class DBStorage:
                     }
             dictionary = {}
             for obj_name, obj in classes.items():
-                objs = self.__session.query(text(obj)).all()
+                objs = self.__session.query(obj).all()
                 for item in objs:
                     key = obj_name  + "." + item.id           
                     dictionary.update({key: item})
         else:
             dictionary = {}
-            objs = self.__session.query(text(cls)).all()
+            objs = self.__session.query(cls).all()
             for item in objs:
                     key = obj + "." + item.id
                     dictionary.update({key: item})
