@@ -143,9 +143,10 @@ class HBNBCommand(cmd.Cmd):
                 except ValueError:
                     continue
                 new_instance.__dict__.update({key: value})
+        storage.new(new_instance)
         storage.save()
         print(new_instance.id)
-        storage.save()
+        # storage.save()
 
     def help_create(self):
         """ Help information for the create method """
