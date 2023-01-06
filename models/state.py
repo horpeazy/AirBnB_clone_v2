@@ -11,7 +11,8 @@ class State(BaseModel, Base):
     """ State class """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
-    cities = relationship("City", back_populates="state", cascade="save-update, merge, delete")
+    cities = relationship("City", back_populates="state",
+                          cascade="save-update, merge, delete")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
