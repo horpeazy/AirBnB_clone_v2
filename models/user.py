@@ -14,4 +14,8 @@ class User(BaseModel, Base):
     first_name = Column(String(128))
     last_name = Column(String(128))
 
-    places = relationship("Place", back_populates="user", cascade="save-update, merge, delete")
+    # relationships
+    places = relationship("Place", back_populates="user",
+                         cascade="save-update, merge, delete")
+    reviews = relationship("Review", back_populates="user",
+                         cascade="save-update, merge, delete")
