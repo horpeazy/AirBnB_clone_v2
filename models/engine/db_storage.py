@@ -44,7 +44,7 @@ class DBStorage:
                 objs = self.__session.query(obj.__table__).all()
                 for item in objs:
                     key = obj_name  + "." + item.id           
-                    dictionary.update({key: item.to_dict()})
+                    dictionary.update({key: item._asdict().to_dict()})
         else:
             dictionary = {}
             cls = classes[cls]
@@ -52,7 +52,7 @@ class DBStorage:
             for item in objs:
                     key = cls.__name__ + "." + item.id
                     print(item)
-                    dictionary.update({key: item.to_dict()})
+                    dictionary.update({key: item._asdict().to_dict()})
 
         return dictionary
 
