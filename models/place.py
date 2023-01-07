@@ -28,6 +28,7 @@ class Place(BaseModel, Base):
     reviews = relationship("Review", back_populates="place",
                          cascade="save-update, merge, delete")
     amenities = relationship("Amenity", secondary="place_amenity", viewonly=False)
+    cities = relationship("City", back_populates="places")
 
     @property
     def reviews(self):
