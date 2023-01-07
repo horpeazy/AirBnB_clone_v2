@@ -9,6 +9,15 @@ from sqlalchemy.orm import relationship
 from models import FileStorage
 
 
+
+place_amenity = Table(
+    "place_amenity",
+    Base.metadata,
+    Column("place_id", ForeignKey("places.id"), primary_key=True, nullable=False),
+    Column("amenity_id", ForeignKey("amenities.id"), primary_key=True, nullable=False)
+)
+
+
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
@@ -29,7 +38,8 @@ class Place(BaseModel, Base):
     if os.getenv("HBNB_TYPE_STORAGE") == "db":
         reviews = relationship("Review", back_populates="place",
                             cascade="save-update, merge, delete")
-        amenities = relationship("Amenity", secondary="place_amenity", viewonly=False)
+        amenities = relationship("Amenity", secondary=place_amenity,
+                                viewonly=False, back_populates="place_amenities")
         cities = relationship("City", back_populates="places")
     else:
         @property
@@ -58,11 +68,3 @@ class Place(BaseModel, Base):
             """ setter method for amenities """
             if type(cls) == Amenity and cls.id not in self.amenity_ids:
                 self.amenity_ids.append(cls.id)
-
-
-place_amenity = Table(
-    "place_amenity",
-    Base.metadata,
-    Column("place_id", ForeignKey("places.id"), primary_key=True, nullable=False),
-    Column("amenity_id", ForeignKey("amenities.id"), primary_key=True, nullable=False)
-)
