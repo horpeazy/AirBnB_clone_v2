@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
+import os
 from models.base_model import BaseModel, Base
 from models.review import Review
 from models.amenity import Amenity
@@ -25,37 +26,38 @@ class Place(BaseModel, Base):
     amenity_ids = []
 
     # relationships
-    reviews = relationship("Review", back_populates="place",
-                         cascade="save-update, merge, delete")
-    amenities = relationship("Amenity", secondary="place_amenity", viewonly=False)
-    cities = relationship("City", back_populates="places")
+    if os.getenv("HBNB_MYSQL_DB") == "db":
+        reviews = relationship("Review", back_populates="place",
+                            cascade="save-update, merge, delete")
+        amenities = relationship("Amenity", secondary="place_amenity", viewonly=False)
+        cities = relationship("City", back_populates="places")
+    else:
+        @property
+        def reviews(self):
+            """ getter method for cities """
+            reviews = []
+            models = FileStorage.all()
+            for obj in models.values():
+                if type(obj["__class__"]) == Review and obj.place_id == self.id:
+                    reviews.append(obj)
+            return reviews
 
-    @property
-    def reviews(self):
-        """ getter method for cities """
-        reviews = []
-        models = FileStorage.all()
-        for obj in models.values():
-            if type(obj["__class__"]) == Review and obj.place_id == self.id:
-                reviews.append(obj)
-        return reviews
+        @property
+        def amenities(self):
+            """ getter for amenities """
+            amenities = []
+            models = FileStorage.all(Amenity)
+            for obj in models.values():
+                if obj.id in self.amenity_ids:
+                    amenities.append(obj)
 
-    @property
-    def amenities(self):
-        """ getter for amenities """
-        amenities = []
-        models = FileStorage.all(Amenity)
-        for obj in models.values():
-            if obj.id in self.amenity_ids:
-                amenities.append(obj)
+            return amenities
 
-        return amenities
-
-    @amenities.setter
-    def amenities(self, cls=None):
-        """ setter method for amenities """
-        if type(cls) == Amenity:
-            self.amenity_ids.append(cls.id)
+        @amenities.setter
+        def amenities(self, cls=None):
+            """ setter method for amenities """
+            if type(cls) == Amenity and cls.id not in self.amenity_ids:
+                self.amenity_ids.append(cls.id)
 
 
 place_amenity = Table(
