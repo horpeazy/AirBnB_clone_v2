@@ -14,9 +14,6 @@ class State(BaseModel, Base):
     cities = relationship("City", back_populates="state",
                           cascade="save-update, merge, delete")
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-    
     @property
     def cities(self):
         """ getter method for cities """
