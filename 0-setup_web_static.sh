@@ -2,7 +2,7 @@
 # Shell script to setup a new server to serve web static
 sudo apt-get update -y
 sudo apt-get install nginx -y
-sudo service nginc start
+sudo service nginx start
 mkdir -p /data/web_static/shared/ /data/web_static/releases/test/
 echo "Hello world!" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test/ /data/web_static/current
