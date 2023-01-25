@@ -19,8 +19,8 @@ def do_deploy(archive_path):
         run('mkdir -p {}'.format(upload_folder))
         run('tar -xzf /tmp/{} -C {}'.format(archive_name, upload_folder))
         run('rm /tmp/{}'.format(archive_name))
-        run('mv {}/web_static/* {}'.format(upload_folder, upload_folder))
-        run('rm -rf {}/web_static'.format(upload_folder))
+        run('mv {}web_static/* {}'.format(upload_folder, upload_folder))
+        run('rm -rf {}web_static'.format(upload_folder))
         run('rm -rf /data/web_static/current')
         run('ln -sf {} /data/web_static/current'.format(upload_folder))
         return True
