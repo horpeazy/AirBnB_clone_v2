@@ -16,9 +16,6 @@ service  {  'nginx':
 
 file  {  '/data':
   ensure  => directory,
-  owner   => 'ubuntu',
-  group   => 'ubuntu',
-  recurse => true
 }
 
 file  {  '/data/web_static':
@@ -47,8 +44,13 @@ exec  {  'create_link':
   path    => '/usr/bin'
 }
 
+exec  {  'change_owner':
+  command => 'sudo chown -R ubuntu:ubuntu /data',
+  path    => '/usr/bin'
+}
+
 exec  {  'update_nginx':
-  command => 'sudo sed -i "/server_name _/a\ \tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t}\n" /etc/nginx/sites-available/default',
+  command => 'sudo sed -i "/server_name _/a\ \n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t}\n" /etc/nginx/sites-available/default',
   path    => "/usr/bin"
 }
 
