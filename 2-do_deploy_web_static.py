@@ -15,15 +15,15 @@ def do_deploy(archive_path):
             return False
         put(archive_path, '/tmp/')
         archive_name = archive_path.split('/')[-1]
-        upload_folder = '/data/web_static/releases/{}/'.format(archive_name[:-4])
-        run('mkdir -p {}'.format(upload_folder))
-        run('tar -xzf /tmp/{} -C {}'.format(archive_name, upload_folder))
+        up_folder = '/data/web_static/releases/{}/'.format(archive_name[:-4])
+        run('mkdir -p {}'.format(up_folder))
+        run('tar -xzf /tmp/{} -C {}'.format(archive_name, up_folder))
         run('rm /tmp/{}'.format(archive_name))
-        run('mv {}web_static/* {}'.format(upload_folder, upload_folder))
-        run('rm -rf {}web_static'.format(upload_folder))
+        run('mv {}web_static/* {}'.format(up_folder, up_folder))
+        run('rm -rf {}web_static'.format(up_folder))
         run('rm -rf /data/web_static/current')
-        run('ln -sf {} /data/web_static/current'.format(upload_folder))
+        run('ln -sf {} /data/web_static/current'.format(up_folder))
+        print("New version deployed!")
         return True
     except Exception as e:
-        print(e)
         return False
