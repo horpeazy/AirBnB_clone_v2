@@ -72,3 +72,7 @@ class DBStorage:
         """ create tables and sessions """
         Base.metadata.create_all(self.__engine)
         self.__session = sessionmaker(bind=self.__engine, expire_on_commit =False)()
+
+    def close(self):
+        """ close the session """
+        self.__session.remove()
