@@ -27,7 +27,7 @@ def hbnb():
     for place in places_q.values():
         id = place.user_id
         for user in users.values():
-            if user.id == id:
+            if user.id == id and user.id is not None:
                 place.owner = user.last_name + user.first_name
                 break
         places.append(place)
