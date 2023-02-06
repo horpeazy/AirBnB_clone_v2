@@ -20,6 +20,6 @@ class State(BaseModel, Base):
         cities = []
         models = storage.all()
         for obj in models.values():
-            if type(obj["__class__"]) == City and obj.state_id == self.id:
+            if type(obj) == City and obj.state_id == self.id:
                 cities.append(obj)
         return cities
