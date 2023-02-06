@@ -8,7 +8,7 @@ from models.state import State
 app = Flask(__name__)
 
 @app.teardown_appcontext
-def remove_session():
+def remove_session(exception=None):
     """ removes the datavase session """
     storage.close()
 
