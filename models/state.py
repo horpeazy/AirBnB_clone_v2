@@ -3,7 +3,6 @@
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
-from models import storage
 from models.city import City
 
 
@@ -16,6 +15,7 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
+        from models import storage
         """ getter method for cities """
         cities = []
         models = storage.all()
