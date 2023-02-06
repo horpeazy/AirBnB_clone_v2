@@ -29,7 +29,7 @@ def hbnb_filters():
         "states": states,
         "amenities": amenities
     }
-    return render_template('7-states_list.html', data=data)
+    return render_template('10-hbnb_filters.html', data=data)
 
 
 if __name__ == '__main__':
