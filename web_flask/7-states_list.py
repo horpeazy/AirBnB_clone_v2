@@ -16,7 +16,10 @@ def remove_session(exception=None):
            methods=['GET'])
 def states_list():
     """ renders all states in the database"""
-    states = storage.all(State)
+    query = storage.all(State)
+    states = []
+    for state in query.values():
+        states.append(state)
     return render_template('7-states_list.html', states=states)
 
 if __name__ == '__main__':
