@@ -35,23 +35,22 @@ class DBStorage:
 
     def all(self, cls=None):
         """ Returns a dictionary of models currently in storage """
-        classes = {"User": User, "State": State, "City": City, 
-                        "Amenity": Amenity, "Place": Place , "Review": Review
-        }
+        classes = {"User": User, "State": State, "City": City,
+                   "Amenity": Amenity, "Place": Place, "Review": Review
+                   }
         if not cls:
             dictionary = {}
             for obj_name, obj in classes.items():
                 objs = self.__session.query(obj).all()
                 for item in objs:
-                    key = obj_name  + "." + item.id           
+                    key = obj_name + "." + item.id
                     dictionary.update({key: item})
         else:
             dictionary = {}
-            # cls = classes[cls]
             objs = self.__session.query(cls).all()
             for item in objs:
-                    key = cls.__name__ + "." + item.id
-                    dictionary.update({key: item})
+                key = cls.__name__ + "." + item.id
+                dictionary.update({key: item})
 
         return dictionary
 
@@ -71,7 +70,8 @@ class DBStorage:
     def reload(self):
         """ create tables and sessions """
         Base.metadata.create_all(self.__engine)
-        self.__session = sessionmaker(bind=self.__engine, expire_on_commit =False)()
+        self.__session = sessionmaker(bind=self.__engine,
+                                      expire_on_commit=False)()
 
     def close(self):
         """ close the session """
