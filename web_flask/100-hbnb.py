@@ -15,9 +15,9 @@ def remove_session(exception=None):
     """ removes the datavase session """
     storage.close()
 
-@app.route('/hbnb_filters', strict_slashes=False,
+@app.route('/hbnb', strict_slashes=False,
            methods=['GET'])
-def hbnb_filters():
+def hbnb():
     """ hbnb filter route """
     states = storage.all(State)
     amenities = storage.all(Amenity)
