@@ -4,13 +4,14 @@ from flask import Flask, render_template
 from models import storage
 from models.state import State
 
-
 app = Flask(__name__)
+
 
 @app.teardown_appcontext
 def remove_session(exception=None):
     """ removes the datavase session """
     storage.close()
+
 
 @app.route('/states/<id>', strict_slashes=False,
            methods=['GET'])

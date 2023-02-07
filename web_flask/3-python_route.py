@@ -4,15 +4,18 @@ from flask import Flask
 
 app = Flask(__name__)
 
+
 @app.route('/', strict_slashes=False, methods=['GET'])
 def home():
     """ home route """
     return 'Hello HBNB!'
 
+
 @app.route('/hbnb', strict_slashes=False, methods=['GET'])
 def hbnb():
     """ hbnb route """
     return 'HBNB'
+
 
 @app.route('/c/<text>', strict_slashes=False, methods=['GET'])
 def c(text):
@@ -21,6 +24,7 @@ def c(text):
     text = ' '.join(text)
     return 'C {}'.format(text)
 
+
 @app.route('/python', strict_slashes=False, methods=['GET'])
 @app.route('/python/<text>', strict_slashes=False, methods=['GET'])
 def python(text='is cool'):
@@ -28,6 +32,7 @@ def python(text='is cool'):
     text = text.split('_')
     text = ' '.join(text)
     return 'Python {}'.format(text)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

@@ -5,13 +5,14 @@ from models import storage
 from models.state import State
 from models.amenity import Amenity
 
-
 app = Flask(__name__)
+
 
 @app.teardown_appcontext
 def remove_session(exception=None):
     """ removes the datavase session """
     storage.close()
+
 
 @app.route('/hbnb_filters', strict_slashes=False,
            methods=['GET'])

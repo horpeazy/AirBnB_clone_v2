@@ -7,13 +7,14 @@ from models.amenity import Amenity
 from models.place import Place
 from models.user import User
 
-
 app = Flask(__name__)
+
 
 @app.teardown_appcontext
 def remove_session(exception=None):
     """ removes the datavase session """
     storage.close()
+
 
 @app.route('/hbnb', strict_slashes=False,
            methods=['GET'])
