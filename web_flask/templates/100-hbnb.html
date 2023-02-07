@@ -47,7 +47,6 @@
 			</section>
 			<section class="places">
 				<h1>Places</h1>
-                <ul>
                     {% for place in data.places | sort(attribute='name') %}
                         <article>
                             <div class="headline">
@@ -74,7 +73,6 @@
                             </div>
                         </article>
                     {% endfor %}
-                </ul>		
 			</section>
 		</div>
 		<footer>
